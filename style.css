@@ -308,12 +308,14 @@ ul { list-style: none; }
   padding: 1rem 1.5rem 1.5rem;
   background: var(--surface);
   border-top: 1px solid var(--border);
-  max-height: 0;
+  max-height: 0px;
   overflow: hidden;
+  visibility: hidden;
   transition: max-height 0.4s var(--ease);
 }
 
 .mobile-menu.open {
+  visibility: visible;
   max-height: 400px;
 }
 
