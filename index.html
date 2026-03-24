@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediFind — Know Your Risk. Find Care Fast.</title>
+  <link rel="shortcut icon" href="./assets/heart.svg" type="image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="home-page" data-theme="light">
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring delay-1"></div>
+      <div class="pulse-ring delay-2"></div>
+      <div class="preloader-icon">
+        <i class="fas fa-heartbeat"></i>
+      </div>
+      <p class="preloader-text">MediFind</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>MediFind</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="predictor.html" class="nav-link">Risk Predictor</a>
+        <a href="locator.html" class="nav-link">Hospital Locator</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <a href="predictor.html" class="btn-nav">Check My Risk</a>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="predictor.html" class="mobile-link">Risk Predictor</a>
+      <a href="locator.html" class="mobile-link">Hospital Locator</a>
+      <a href="predictor.html" class="btn-nav mobile-btn">Check My Risk</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-badge reveal-up">
+        <span class="badge-dot"></span>
+        AI-Powered Health Intelligence
+      </div>
+      <h1 class="hero-title reveal-up delay-1">
+        Know Your Risk.<br/>
+        <span class="gradient-text">Find Care Fast.</span>
+      </h1>
+      <p class="hero-subtitle reveal-up delay-2">
+        MediFind uses smart risk analysis to assess your symptoms and
+        instantly connects you to nearby hospitals when it matters most.
+        Your health. Your control.
+      </p>
+      <div class="hero-ctas reveal-up delay-3">
+        <a href="predictor.html" class="btn-primary">
+          <i class="fas fa-stethoscope"></i>
+          Check Your Health Risk
+        </a>
+        <a href="locator.html" class="btn-secondary">
+          <i class="fas fa-map-marker-alt"></i>
+          Find Hospitals
+        </a>
+      </div>
+      <div class="hero-stats reveal-up delay-4">
+        <div class="stat">
+          <span class="stat-num" data-target="98">0</span><span>%</span>
+          <p>Accuracy Score</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="50">0</span><span>K+</span>
+          <p>Users Helped</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="24">0</span><span>/7</span>
+          <p>Always Available</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal-right">
+      <div class="health-card floating">
+        <div class="hc-header">
+          <div class="hc-icon green"><i class="fas fa-heart-pulse"></i></div>
+          <div>
+            <p class="hc-label">Risk Level</p>
+            <p class="hc-value green-text">Low Risk</p>
+          </div>
+        </div>
+        <div class="hc-bar"><div class="hc-fill green-bg" style="width:22%"></div></div>
+        <p class="hc-sub">Your vitals look great today!</p>
+      </div>
+      <div class="health-card floating delay-2" style="margin-top:1rem;">
+        <div class="hc-header">
+          <div class="hc-icon orange"><i class="fas fa-location-dot"></i></div>
+          <div>
+            <p class="hc-label">Nearest Hospital</p>
+            <p class="hc-value">Lagos Island General</p>
+          </div>
+        </div>
+        <p class="hc-sub"><i class="fas fa-route"></i>&nbsp; 1.2 km away · Open 24/7</p>
+      </div>
+      <div class="health-card floating delay-4" style="margin-top:1rem;">
+        <div class="hc-header">
+          <div class="hc-icon red"><i class="fas fa-triangle-exclamation"></i></div>
+          <div>
+            <p class="hc-label">Alert</p>
+            <p class="hc-value red-text">High Risk Detected</p>
+          </div>
+        </div>
+        <p class="hc-sub">Redirecting to hospital locator…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section how-it-works">
+    <div class="section-container">
+      <div class="section-label reveal-up">How It Works</div>
+      <h2 class="section-title reveal-up delay-1">Three steps to better health decisions</h2>
+      <div class="steps-grid">
+        <div class="step-card reveal-up delay-1">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+          <h3>Fill Health Form</h3>
+          <p>Enter your age, weight, height, symptoms, and existing conditions in our simple health form.</p>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="step-card reveal-up delay-2">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="fas fa-brain"></i></div>
+          <h3>AI Risk Analysis</h3>
+          <p>Our intelligent algorithm analyzes your inputs and calculates your personal health risk score.</p>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div class="step-card reveal-up delay-3">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="fas fa-hospital"></i></div>
+          <h3>Get Instant Help</h3>
+          <p>Low/Medium risk: get health tips. High risk: instantly see the nearest hospitals on a live map.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features">
+    <div class="section-container">
+      <div class="features-grid">
+        <div class="features-text reveal-left">
+          <div class="section-label">Why MediFind</div>
+          <h2 class="section-title">Built for moments that matter</h2>
+          <p class="features-desc">When your health is at stake, every second counts. MediFind gives you the information and direction you need — instantly, without signing up or waiting.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="fi-icon"><i class="fas fa-bolt"></i></div>
+              <div>
+                <h4>Instant Results</h4>
+                <p>Get your risk assessment in under 60 seconds, no accounts needed.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-icon"><i class="fas fa-map-marked-alt"></i></div>
+              <div>
+                <h4>Live Hospital Map</h4>
+                <p>See real hospitals near you with directions and distances.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-icon"><i class="fas fa-lock"></i></div>
+              <div>
+                <h4>Private & Secure</h4>
+                <p>All data stays on your device. We never upload your health info.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="fi-icon"><i class="fas fa-moon"></i></div>
+              <div>
+                <h4>Dark Mode</h4>
+                <p>Easy on the eyes at any hour with our built-in dark theme.</p>
+              </div>
+            </div>
+          </div>
+          <a href="predictor.html" class="btn-primary" style="margin-top:2rem;display:inline-flex;">
+            Start Health Check <i class="fas fa-arrow-right" style="margin-left:8px;"></i>
+          </a>
+        </div>
+        <div class="features-visual reveal-right">
+          <div class="risk-preview">
+            <div class="rp-header">
+              <span>Health Risk Summary</span>
+              <span class="rp-badge medium">Medium Risk</span>
+            </div>
+            <div class="rp-score">
+              <svg viewBox="0 0 120 120" class="gauge-svg">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--orange)" stroke-width="10"
+                  stroke-dasharray="188 314" stroke-dashoffset="78" stroke-linecap="round"/>
+                <text x="60" y="55" text-anchor="middle" class="gauge-num" fill="var(--text)">62</text>
+                <text x="60" y="72" text-anchor="middle" class="gauge-label-sm" fill="var(--muted)">Risk Score</text>
+              </svg>
+            </div>
+            <div class="rp-items">
+              <div class="rp-item">
+                <span>Chest Pain</span><span class="tag red">High</span>
+              </div>
+              <div class="rp-item">
+                <span>Fever</span><span class="tag orange">Medium</span>
+              </div>
+              <div class="rp-item">
+                <span>Age Factor</span><span class="tag green">Low</span>
+              </div>
+              <div class="rp-item">
+                <span>BMI Score</span><span class="tag green">Low</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Risk Levels Section -->
+  <section class="section risk-section">
+    <div class="section-container">
+      <div class="section-label reveal-up" style="text-align:center;">Understanding Risk Levels</div>
+      <h2 class="section-title reveal-up delay-1" style="text-align:center;">What your results mean</h2>
+      <div class="risk-cards">
+        <div class="risk-card green-card reveal-up delay-1">
+          <div class="rc-icon"><i class="fas fa-shield-heart"></i></div>
+          <div class="rc-badge green">Low Risk</div>
+          <h3>All Clear</h3>
+          <p>Your symptoms and vitals suggest no immediate concern. Keep up healthy habits and monitor regularly.</p>
+          <ul>
+            <li>Score 0–30</li>
+            <li>Stay on results page</li>
+            <li>Tips & recommendations</li>
+          </ul>
+        </div>
+        <div class="risk-card orange-card reveal-up delay-2">
+          <div class="rc-icon"><i class="fas fa-triangle-exclamation"></i></div>
+          <div class="rc-badge orange">Medium Risk</div>
+          <h3>Stay Alert</h3>
+          <p>Some symptoms warrant attention. Consider consulting a doctor soon and monitor your condition closely.</p>
+          <ul>
+            <li>Score 31–60</li>
+            <li>Health recommendations</li>
+            <li>Optional hospital search</li>
+          </ul>
+        </div>
+        <div class="risk-card red-card reveal-up delay-3">
+          <div class="rc-icon"><i class="fas fa-circle-exclamation"></i></div>
+          <div class="rc-badge red">High Risk</div>
+          <h3>Seek Help Now</h3>
+          <p>Your inputs indicate a high-risk health situation. MediFind will auto-redirect you to find immediate care.</p>
+          <ul>
+            <li>Score 61+</li>
+            <li>Auto-redirect to locator</li>
+            <li>Nearest hospitals shown</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner reveal-up">
+    <div class="cta-bg">
+      <div class="blob blob-cta1"></div>
+      <div class="blob blob-cta2"></div>
+    </div>
+    <div class="cta-container">
+      <h2>Your health check takes<br/><span class="gradient-text">less than 2 minutes.</span></h2>
+      <p>No signup. No waiting. Just answers.</p>
+      <div class="cta-buttons">
+        <a href="predictor.html" class="btn-primary large">
+          <i class="fas fa-stethoscope"></i> Start Risk Assessment
+        </a>
+        <a href="locator.html" class="btn-outline large">
+          <i class="fas fa-map-marker-alt"></i> Find Hospitals Near Me
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <i class="fas fa-heartbeat logo-icon"></i>
+          <span>MediFind</span>
+        </a>
+        <p>Smart health risk assessment and hospital finder for everyone.</p>
+        <p class="footer-disclaimer">⚠️ Not a substitute for professional medical advice.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Tools</h4>
+        <a href="predictor.html">Risk Predictor</a>
+        <a href="locator.html">Hospital Locator</a>
+      </div>
+      <div class="footer-links">
+        <h4>Info</h4>
+        <a href="#">How It Works</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">About</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MediFind. Built for your health.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Risk Predictor — MediFind</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./assets/heart.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="predictor-page" data-theme="light">
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring delay-1"></div>
+      <div class="pulse-ring delay-2"></div>
+      <div class="preloader-icon"><i class="fas fa-heartbeat"></i></div>
+      <p class="preloader-text">MediFind</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>MediFind</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="predictor.html" class="nav-link active">Risk Predictor</a>
+        <a href="locator.html" class="nav-link">Hospital Locator</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <a href="predictor.html" class="btn-nav">Check My Risk</a>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="predictor.html" class="mobile-link">Risk Predictor</a>
+      <a href="locator.html" class="mobile-link">Hospital Locator</a>
+      <a href="predictor.html" class="btn-nav mobile-btn">Check My Risk</a>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="ph-bg">
+      <div class="blob blob-1" style="opacity:0.4;"></div>
+      <div class="blob blob-2" style="opacity:0.3;"></div>
+    </div>
+    <div class="ph-container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Risk Predictor</span>
+      </div>
+      <h1 class="ph-title reveal-up">Health Risk <span class="gradient-text">Predictor</span></h1>
+      <p class="ph-sub reveal-up delay-1">Fill in your health details below. Our algorithm will assess your risk level in seconds.</p>
+    </div>
+  </section>
+
+  <!-- Main Predictor Area -->
+  <section class="predictor-section">
+    <div class="predictor-container">
+
+      <!-- Saved Results Banner -->
+      <div class="saved-banner" id="savedBanner" style="display:none;">
+        <i class="fas fa-clock-rotate-left"></i>
+        <span>You have a previous result saved. </span>
+        <button class="saved-view-btn" id="viewSavedBtn">View Last Result</button>
+        <button class="saved-clear-btn" id="clearSavedBtn"><i class="fas fa-trash"></i></button>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="ps-step active" data-step="1">
+          <div class="ps-circle">1</div>
+          <span>Personal Info</span>
+        </div>
+        <div class="ps-line"></div>
+        <div class="ps-step" data-step="2">
+          <div class="ps-circle">2</div>
+          <span>Symptoms</span>
+        </div>
+        <div class="ps-line"></div>
+        <div class="ps-step" data-step="3">
+          <div class="ps-circle">3</div>
+          <span>Conditions</span>
+        </div>
+        <div class="ps-line"></div>
+        <div class="ps-step" data-step="4">
+          <div class="ps-circle">4</div>
+          <span>Results</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="healthForm" novalidate>
+
+        <!-- Step 1: Personal Info -->
+        <div class="form-step active" id="step1">
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="fch-icon"><i class="fas fa-user-circle"></i></div>
+              <div>
+                <h2>Personal Information</h2>
+                <p>Basic info helps calibrate your risk profile accurately.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="age">Age <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <i class="fas fa-cake-candles input-icon"></i>
+                  <input type="number" id="age" name="age" placeholder="e.g. 35" min="1" max="120" required/>
+                </div>
+                <span class="field-error" id="ageError"></span>
+              </div>
+
+              <div class="form-group">
+                <label>Gender <span class="req">*</span></label>
+                <div class="gender-options">
+                  <label class="gender-opt">
+                    <input type="radio" name="gender" value="male" required/>
+                    <div class="go-card"><i class="fas fa-mars"></i> Male</div>
+                  </label>
+                  <label class="gender-opt">
+                    <input type="radio" name="gender" value="female"/>
+                    <div class="go-card"><i class="fas fa-venus"></i> Female</div>
+                  </label>
+                  <label class="gender-opt">
+                    <input type="radio" name="gender" value="other"/>
+                    <div class="go-card"><i class="fas fa-genderless"></i> Other</div>
+                  </label>
+                </div>
+                <span class="field-error" id="genderError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="weight">Weight (kg) <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <i class="fas fa-weight-scale input-icon"></i>
+                  <input type="number" id="weight" name="weight" placeholder="e.g. 70" min="20" max="300" required/>
+                </div>
+                <span class="field-error" id="weightError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="height">Height (cm) <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <i class="fas fa-ruler-vertical input-icon"></i>
+                  <input type="number" id="height" name="height" placeholder="e.g. 175" min="100" max="250" required/>
+                </div>
+                <span class="field-error" id="heightError"></span>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Smoking Status</label>
+                <div class="select-wrap">
+                  <i class="fas fa-smoking input-icon"></i>
+                  <select id="smoking" name="smoking">
+                    <option value="never">Never smoked</option>
+                    <option value="former">Former smoker</option>
+                    <option value="current">Current smoker</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Physical Activity Level</label>
+                <div class="activity-options">
+                  <label class="activity-opt">
+                    <input type="radio" name="activity" value="sedentary"/>
+                    <div class="ao-card"><i class="fas fa-couch"></i><span>Sedentary</span></div>
+                  </label>
+                  <label class="activity-opt">
+                    <input type="radio" name="activity" value="light" checked/>
+                    <div class="ao-card"><i class="fas fa-person-walking"></i><span>Light</span></div>
+                  </label>
+                  <label class="activity-opt">
+                    <input type="radio" name="activity" value="moderate"/>
+                    <div class="ao-card"><i class="fas fa-person-running"></i><span>Moderate</span></div>
+                  </label>
+                  <label class="activity-opt">
+                    <input type="radio" name="activity" value="active"/>
+                    <div class="ao-card"><i class="fas fa-dumbbell"></i><span>Active</span></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- BMI Preview -->
+            <div class="bmi-preview" id="bmiPreview" style="display:none;">
+              <div class="bmi-label">Your BMI</div>
+              <div class="bmi-value" id="bmiValue">—</div>
+              <div class="bmi-category" id="bmiCategory">—</div>
+              <div class="bmi-bar-wrap">
+                <div class="bmi-bar">
+                  <div class="bmi-bar-fill" id="bmiFill"></div>
+                  <div class="bmi-marker" id="bmiMarker"></div>
+                </div>
+                <div class="bmi-labels">
+                  <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <div></div>
+              <button type="button" class="btn-primary next-step" data-next="2">
+                Next: Symptoms <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Symptoms -->
+        <div class="form-step" id="step2">
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="fch-icon orange-icon"><i class="fas fa-thermometer-half"></i></div>
+              <div>
+                <h2>Current Symptoms</h2>
+                <p>Select all symptoms you are currently experiencing.</p>
+              </div>
+            </div>
+
+            <div class="symptoms-grid">
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="chest_pain" data-score="30"/>
+                <div class="sc-card high-risk-sym">
+                  <i class="fas fa-heart-crack"></i>
+                  <span>Chest Pain</span>
+                  <div class="sc-tag red">High Risk</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="shortness_breath" data-score="25"/>
+                <div class="sc-card high-risk-sym">
+                  <i class="fas fa-lungs"></i>
+                  <span>Shortness of Breath</span>
+                  <div class="sc-tag red">High Risk</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="severe_headache" data-score="20"/>
+                <div class="sc-card high-risk-sym">
+                  <i class="fas fa-head-side-virus"></i>
+                  <span>Severe Headache</span>
+                  <div class="sc-tag red">High Risk</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="confusion" data-score="25"/>
+                <div class="sc-card high-risk-sym">
+                  <i class="fas fa-brain"></i>
+                  <span>Confusion / Dizziness</span>
+                  <div class="sc-tag red">High Risk</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="fever" data-score="15"/>
+                <div class="sc-card med-risk-sym">
+                  <i class="fas fa-temperature-high"></i>
+                  <span>Fever</span>
+                  <div class="sc-tag orange">Medium</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="fatigue" data-score="10"/>
+                <div class="sc-card med-risk-sym">
+                  <i class="fas fa-bed"></i>
+                  <span>Fatigue / Weakness</span>
+                  <div class="sc-tag orange">Medium</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="nausea" data-score="10"/>
+                <div class="sc-card med-risk-sym">
+                  <i class="fas fa-face-nauseated"></i>
+                  <span>Nausea / Vomiting</span>
+                  <div class="sc-tag orange">Medium</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="joint_pain" data-score="8"/>
+                <div class="sc-card med-risk-sym">
+                  <i class="fas fa-bone"></i>
+                  <span>Joint / Body Pain</span>
+                  <div class="sc-tag orange">Medium</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="headache" data-score="8"/>
+                <div class="sc-card low-risk-sym">
+                  <i class="fas fa-head-side-cough"></i>
+                  <span>Mild Headache</span>
+                  <div class="sc-tag green">Low</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="cough" data-score="8"/>
+                <div class="sc-card low-risk-sym">
+                  <i class="fas fa-lungs-virus"></i>
+                  <span>Cough</span>
+                  <div class="sc-tag green">Low</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="sore_throat" data-score="5"/>
+                <div class="sc-card low-risk-sym">
+                  <i class="fas fa-stethoscope"></i>
+                  <span>Sore Throat</span>
+                  <div class="sc-tag green">Low</div>
+                </div>
+              </label>
+              <label class="symptom-check">
+                <input type="checkbox" name="symptoms" value="none" data-score="0"/>
+                <div class="sc-card">
+                  <i class="fas fa-circle-check"></i>
+                  <span>No Symptoms</span>
+                  <div class="sc-tag green">Clear</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="symptom-score-preview">
+              <span>Symptom Risk Score:</span>
+              <div class="score-bar">
+                <div class="score-bar-fill" id="symptomScoreBar" style="width:0%"></div>
+              </div>
+              <span id="symptomScoreNum">0</span>
+            </div>
+
+            <div class="step-actions">
+              <button type="button" class="btn-secondary prev-step" data-prev="1">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button type="button" class="btn-primary next-step" data-next="3">
+                Next: Conditions <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Conditions -->
+        <div class="form-step" id="step3">
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="fch-icon red-icon"><i class="fas fa-notes-medical"></i></div>
+              <div>
+                <h2>Existing Conditions</h2>
+                <p>Select any conditions you have been diagnosed with.</p>
+              </div>
+            </div>
+
+            <div class="conditions-grid">
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="diabetes" data-score="15"/>
+                <div class="cc-card">
+                  <i class="fas fa-syringe"></i>
+                  <span>Diabetes</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="hypertension" data-score="15"/>
+                <div class="cc-card">
+                  <i class="fas fa-heart-pulse"></i>
+                  <span>Hypertension</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="heart_disease" data-score="25"/>
+                <div class="cc-card">
+                  <i class="fas fa-heart-crack"></i>
+                  <span>Heart Disease</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="asthma" data-score="10"/>
+                <div class="cc-card">
+                  <i class="fas fa-wind"></i>
+                  <span>Asthma</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="kidney_disease" data-score="20"/>
+                <div class="cc-card">
+                  <i class="fas fa-droplet"></i>
+                  <span>Kidney Disease</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="cancer" data-score="25"/>
+                <div class="cc-card">
+                  <i class="fas fa-biohazard"></i>
+                  <span>Cancer</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="copd" data-score="20"/>
+                <div class="cc-card">
+                  <i class="fas fa-lungs"></i>
+                  <span>COPD</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="stroke" data-score="25"/>
+                <div class="cc-card">
+                  <i class="fas fa-brain"></i>
+                  <span>Stroke History</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="obesity" data-score="10"/>
+                <div class="cc-card">
+                  <i class="fas fa-weight-scale"></i>
+                  <span>Obesity</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="depression" data-score="8"/>
+                <div class="cc-card">
+                  <i class="fas fa-face-sad-tear"></i>
+                  <span>Depression/Anxiety</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="arthritis" data-score="5"/>
+                <div class="cc-card">
+                  <i class="fas fa-hand-dots"></i>
+                  <span>Arthritis</span>
+                </div>
+              </label>
+              <label class="condition-check">
+                <input type="checkbox" name="conditions" value="none" data-score="0"/>
+                <div class="cc-card">
+                  <i class="fas fa-shield-heart"></i>
+                  <span>None of the Above</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="step-actions">
+              <button type="button" class="btn-secondary prev-step" data-prev="2">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button type="submit" class="btn-primary submit-btn" id="submitBtn">
+                <i class="fas fa-magnifying-glass-chart"></i> Analyze My Health Risk
+                <div class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i></div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div class="form-step" id="step4">
+          <div class="result-card" id="resultCard">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <i class="fas fa-heartbeat logo-icon"></i>
+          <span>MediFind</span>
+        </a>
+        <p>Smart health risk assessment and hospital finder for everyone.</p>
+        <p class="footer-disclaimer">⚠️ Not a substitute for professional medical advice.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Tools</h4>
+        <a href="predictor.html">Risk Predictor</a>
+        <a href="locator.html">Hospital Locator</a>
+      </div>
+      <div class="footer-links">
+        <h4>Info</h4>
+        <a href="#">How It Works</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">About</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MediFind. Built for your health.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

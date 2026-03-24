@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Locator — MediFind</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./assets/heart.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+</head>
+<body class="locator-page" data-theme="light">
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring delay-1"></div>
+      <div class="pulse-ring delay-2"></div>
+      <div class="preloader-icon"><i class="fas fa-heartbeat"></i></div>
+      <p class="preloader-text">MediFind</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>MediFind</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="predictor.html" class="nav-link">Risk Predictor</a>
+        <a href="locator.html" class="nav-link active">Hospital Locator</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <a href="predictor.html" class="btn-nav">Check My Risk</a>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="predictor.html" class="mobile-link">Risk Predictor</a>
+      <a href="locator.html" class="mobile-link">Hospital Locator</a>
+      <a href="predictor.html" class="btn-nav mobile-btn">Check My Risk</a>
+    </div>
+  </nav>
+
+  <!-- High Risk Alert Banner (shown if redirected) -->
+  <div class="high-risk-banner" id="highRiskBanner" style="display:none;">
+    <div class="hrb-inner">
+      <div class="hrb-icon"><i class="fas fa-circle-exclamation"></i></div>
+      <div class="hrb-text">
+        <strong>High Health Risk Detected!</strong>
+        <span>Please visit a nearby hospital immediately. Your results indicated a critical risk level.</span>
+      </div>
+      <button class="hrb-close" id="hrbClose"><i class="fas fa-xmark"></i></button>
+    </div>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero locator-hero">
+    <div class="ph-bg">
+      <div class="blob blob-1" style="opacity:0.4;"></div>
+      <div class="blob blob-2" style="opacity:0.3;"></div>
+    </div>
+    <div class="ph-container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Hospital Locator</span>
+      </div>
+      <h1 class="ph-title reveal-up">Hospital <span class="gradient-text">Locator</span></h1>
+      <p class="ph-sub reveal-up delay-1">Find hospitals and clinics near your current location with distances and directions.</p>
+    </div>
+  </section>
+
+  <!-- Locator Section -->
+  <section class="locator-section">
+    <div class="locator-container">
+
+      <!-- Controls -->
+      <div class="locator-controls reveal-up">
+        <div class="lc-left">
+          <div class="search-wrap">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="text" id="hospitalSearch" placeholder="Search hospitals by name or address…"/>
+          </div>
+        </div>
+        <div class="lc-right">
+          <select id="radiusFilter" class="radius-select">
+            <option value="2000">Within 2 km</option>
+            <option value="5000" selected>Within 5 km</option>
+            <option value="10000">Within 10 km</option>
+            <option value="20000">Within 20 km</option>
+          </select>
+          <button class="btn-primary" id="locateBtn">
+            <i class="fas fa-location-crosshairs"></i>
+            <span>Find Near Me</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout -->
+      <div class="locator-layout">
+
+        <!-- Sidebar: Hospital List -->
+        <div class="hospital-sidebar" id="hospitalSidebar">
+          <div class="hs-header">
+            <h3 id="hospitalCount">Hospitals Found</h3>
+            <div class="sort-wrap">
+              <select id="sortBy">
+                <option value="distance">Sort: Distance</option>
+                <option value="name">Sort: Name</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Empty / Prompt State -->
+          <div class="hs-empty" id="hsEmpty">
+            <div class="hse-icon"><i class="fas fa-map-pin"></i></div>
+            <h4>No hospitals loaded yet</h4>
+            <p>Click "Find Near Me" to discover hospitals in your area.</p>
+            <button class="btn-primary" id="locateBtnSidebar">
+              <i class="fas fa-location-crosshairs"></i> Find Near Me
+            </button>
+          </div>
+
+          <!-- Loading State -->
+          <div class="hs-loading" id="hsLoading" style="display:none;">
+            <div class="spinner-wrap">
+              <div class="spinner"></div>
+              <p>Fetching nearby hospitals…</p>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div class="hs-error" id="hsError" style="display:none;">
+            <div class="hse-icon"><i class="fas fa-triangle-exclamation"></i></div>
+            <h4>Location Access Denied</h4>
+            <p id="errorMsg">Please enable location permissions and try again.</p>
+            <button class="btn-secondary" id="retryBtn">
+              <i class="fas fa-rotate-right"></i> Try Again
+            </button>
+          </div>
+
+          <!-- Hospital List -->
+          <div class="hospital-list" id="hospitalList" style="display:none;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container">
+          <div id="map"></div>
+          <div class="map-overlay" id="mapOverlay">
+            <div class="mo-content">
+              <i class="fas fa-map"></i>
+              <p>Your location and nearby hospitals will appear here</p>
+              <button class="btn-primary" id="locateBtnMap">
+                <i class="fas fa-location-crosshairs"></i> Enable Location
+              </button>
+            </div>
+          </div>
+          <div class="map-legend">
+            <div class="ml-item"><div class="ml-dot blue"></div> You</div>
+            <div class="ml-item"><div class="ml-dot red"></div> Hospital</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected Hospital Detail Card -->
+      <div class="hospital-detail" id="hospitalDetail" style="display:none;">
+        <div class="hd-header">
+          <div class="hd-icon"><i class="fas fa-hospital"></i></div>
+          <div class="hd-info">
+            <h3 id="hdName">Hospital Name</h3>
+            <p id="hdAddress"><i class="fas fa-location-dot"></i> Address</p>
+          </div>
+          <button class="hd-close" id="hdClose"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="hd-body">
+          <div class="hd-stat">
+            <i class="fas fa-route"></i>
+            <div>
+              <span>Distance</span>
+              <strong id="hdDistance">—</strong>
+            </div>
+          </div>
+          <div class="hd-stat">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span>Est. Drive Time</span>
+              <strong id="hdTime">—</strong>
+            </div>
+          </div>
+          <div class="hd-stat">
+            <i class="fas fa-phone"></i>
+            <div>
+              <span>Emergency</span>
+              <strong>112 / 911</strong>
+            </div>
+          </div>
+        </div>
+        <div class="hd-actions">
+          <a href="#" class="btn-primary" id="hdDirections" target="_blank">
+            <i class="fas fa-diamond-turn-right"></i> Get Directions
+          </a>
+          <button class="btn-secondary" id="hdFocus">
+            <i class="fas fa-crosshairs"></i> Focus on Map
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <i class="fas fa-heartbeat logo-icon"></i>
+          <span>MediFind</span>
+        </a>
+        <p>Smart health risk assessment and hospital finder for everyone.</p>
+        <p class="footer-disclaimer">⚠️ Not a substitute for professional medical advice.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Tools</h4>
+        <a href="predictor.html">Risk Predictor</a>
+        <a href="locator.html">Hospital Locator</a>
+      </div>
+      <div class="footer-links">
+        <h4>Info</h4>
+        <a href="#">How It Works</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">About</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MediFind. Built for your health.</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
