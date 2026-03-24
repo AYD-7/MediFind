@@ -311,12 +311,17 @@ ul { list-style: none; }
   max-height: 0px;
   overflow: hidden;
   visibility: hidden;
-  transition: max-height 0.4s var(--ease);
+  transition: 
+    max-height 0.4s var(--ease),
+    visibility 0s linear 0.4s;
 }
 
 .mobile-menu.open {
-  visibility: visible;
   max-height: 400px;
+  visibility: visible;
+  transition: 
+    max-height 0.4s var(--ease),
+    visibility 0s linear 0s; 
 }
 
 .mobile-link {
