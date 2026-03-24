@@ -1093,3 +1093,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPredictor();
   initLocator();
 });
+
+// Copyright year
+document.getElementById("year").textContent = new Date().getFullYear();
